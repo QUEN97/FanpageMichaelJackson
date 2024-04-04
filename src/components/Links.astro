@@ -2,7 +2,7 @@
 import Menu from "../icons/menu.astro";
 ---
 
-<div class="w-full text-gray-700">
+<div class="w-full">
   <div
     x-data="{ open: false }"
     class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
@@ -11,7 +11,7 @@ import Menu from "../icons/menu.astro";
     <div class="p-4 flex flex-row items-center justify-between">
       <a
         href="#"
-        class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg focus:outline-none focus:shadow-outline"
+        class="text-lg font-semibold tracking-widest uppercase rounded-lg focus:outline-none focus:shadow-outline"
         >Michael Jackson</a
       >
       <button
@@ -25,8 +25,7 @@ import Menu from "../icons/menu.astro";
       :class="{'flex': open, 'hidden': !open}"
       class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
     >
-      <ul class="flex flex-col md:flex-row text-sm text-gray-900 font-bold">
-        <li><a href="#" class="block px-4 py-2 uppercase">Inicio</a></li>
+      <ul class="flex flex-col md:flex-row text-sm  font-bold">
         <li><a href="#" class="block px-4 py-2 uppercase">Acerca de</a></li>
         <li><a href="#" class="block px-4 py-2 uppercase">Discografía</a></li>
         <li><a href="#" class="block px-4 py-2 uppercase">Filmografía</a></li>
