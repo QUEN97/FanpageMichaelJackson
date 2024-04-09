@@ -5,19 +5,33 @@ import Aright from "../icons/arrow_right.astro";
 ---
 
 <Section id="inicio">
+    <!-- Utilizamos x-init para inicializar un watcher que escucha cambios en currentSlide y actualiza dinámicamente los src de las imágenes de fondo según el valor de currentSlide. -->
     <div
         slot="footer"
-        class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        
+        class="relative h-screen w-full overflow-hidden flex items-center justify-center"
+        x-data="{ currentSlide: 1 }"
+        x-init="$watch('currentSlide', value => {
+            if (value === 1) {
+                document.getElementById('bg-image-model1').src = 'mjthemusical_marquee.jpg';
+                document.getElementById('bg-image-model2').src = 'mj_one_cds.jpg';
+            } else {
+                document.getElementById('bg-image-model1').src = 'mj_one_cds.jpg';
+                document.getElementById('bg-image-model2').src = 'mjthemusical_marquee.jpg';
+            }
+        })"
+        x-on:DOMContentLoaded.window="currentSlide = 1"
+    >
         <!-- Botones de navegación -->
         <button
             id="prevBtn"
+            @click="currentSlide = (currentSlide === 1) ? 2 : 1"
             class="absolute top-1/3 left-2 transform -translate-y-1/2 text-darkGray hover:text-lightGray p-2 focus:outline-none"
         >
             <Aleft clases="w-24 h-24" />
         </button>
         <button
             id="nextBtn"
+            @click="currentSlide = (currentSlide === 1) ? 2 : 1"
             class="absolute top-1/3 right-2 transform -translate-y-1/2 text-darkGray hover:text-lightGray p-2 focus:outline-none"
         >
             <Aright clases="w-24 h-24" />
@@ -27,33 +41,68 @@ import Aright from "../icons/arrow_right.astro";
         <div
             class="slide space-y-4 flex-none w-full flex flex-col items-center justify-center"
             id="slide1"
+            x-show="currentSlide === 1"
         >
             <button
                 type="button"
                 class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                >Saber Más</button
             >
+                Saber Más
+            </button>
         </div>
+
         <!-- Slide 2 -->
-        <div x-data="{ isOpen: false }" class="slide space-y-4 flex-none w-full flex flex-col items-center justify-center hidden" id="slide2">
+        <div
+            class="slide space-y-4 flex-none w-full flex flex-col items-center justify-center"
+            id="slide2"
+            x-show="currentSlide === 2"
+        >
             <!-- Modal -->
-            <div x-show="isOpen" @click.away="isOpen = false" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                <div class="bg-white rounded-lg p-1">
-                    <!-- Contenido del modal -->
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/H7tcKr6udJ8?si=wWKz4Ahhn6Xguo3B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <button @click="isOpen = false" class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4">Cerrar</button>
+            <div x-data="{ isOpen: false }">
+                <div
+                    x-show="isOpen"
+                    @click.away="isOpen = false"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                >
+                    <div class="bg-white rounded-lg p-1">
+                        <!-- Contenido del modal -->
+                        <iframe
+                            width="560"
+                            height="315"
+                            src="https://www.youtube.com/embed/H7tcKr6udJ8?si=wWKz4Ahhn6Xguo3B"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen></iframe>
+                        <button
+                            @click="isOpen = false"
+                            class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
+                            >Cerrar</button
+                        >
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Botones -->
-            <div class="flex space-x-4">
-                <button @click="isOpen = true" type="button" class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Ver Trailer</button>
-        
-                <button @click="isOpen = true" type="button" class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Saber Más</button>
+
+                <!-- Botones -->
+                <div class="flex space-x-4">
+                    <button
+                        @click="isOpen = true"
+                        type="button"
+                        class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        >Ver Trailer</button
+                    >
+
+                    <button
+                        @click="isOpen = true"
+                        type="button"
+                        class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        >Saber Más</button
+                    >
+                </div>
             </div>
         </div>
     </div>
-
+    <!-- Imagenes Background de cada slide -->
     <img
         slot="background"
         alt="MJ Musical"
@@ -69,51 +118,3 @@ import Aright from "../icons/arrow_right.astro";
         id="bg-image-model2"
     />
 </Section>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const slide1 = document.querySelector("#slide1");
-        const slide2 = document.querySelector("#slide2");
-        const bgImage1 = document.querySelector(
-            "#bg-image-model1",
-        ) as HTMLImageElement;
-        const bgImage2 = document.querySelector(
-            "#bg-image-model2",
-        ) as HTMLImageElement;
-        const prevBtn = document.querySelector("#prevBtn");
-        const nextBtn = document.querySelector("#nextBtn");
-
-        let currentSlide = 1;
-
-        const changeSlide = () => {
-            if (currentSlide === 1) {
-                slide1.classList.add("hidden");
-                slide2.classList.remove("hidden");
-                bgImage1.src = "mj_one_cds.jpg";
-                bgImage2.src = "mjthemusical_marquee.jpg";
-                currentSlide = 2;
-            } else {
-                slide1.classList.remove("hidden");
-                slide2.classList.add("hidden");
-                bgImage1.src = "mjthemusical_marquee.jpg";
-                bgImage2.src = "mj_one_cds.jpg";
-                currentSlide = 1;
-            }
-        };
-
-        // Cambiar slide automáticamente
-        // setInterval(() => {
-        //     changeSlide();
-        // }, 5000); // Cambiar cada 5 segundos
-
-        // Función para cambiar al slide anterior
-        prevBtn.addEventListener("click", () => {
-            changeSlide();
-        });
-
-        // Función para cambiar al siguiente slide
-        nextBtn.addEventListener("click", () => {
-            changeSlide();
-        });
-    });
-</script>
