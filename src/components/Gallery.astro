@@ -1,0 +1,234 @@
+---
+import Aleft from "../icons/arrow_left.astro";
+import Aright from "../icons/arrow_right.astro";
+---
+
+<section class="p-1">
+    <div class="flex space-x-4 justify-center">
+        <div class="group">
+            <h2 class="text-4xl text-purple-500 font-custom mb-4">
+                SIENTE EL RITMO...
+            </h2>
+            <div class="flex overflow-hidden mx-auto">
+                <button
+                    data-image="/oneh1.jpg"
+                    data-alt="Una horda de zombis baila con los brazos abiertos en un ambiente neblinoso - Michael Jackson One by Cirque du Soleil"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Una horda de zombis baila con los brazos abiertos en un ambiente neblinoso - Michael Jackson One by Cirque du Soleil"
+                            src="/oneh1.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] rounded-tl-lg rounded-bl-lg object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh2.jpg"
+                    data-alt="Tres artistas vestidos con chaquetas de colores bailan coordinados - Michael Jackson show Las Vegas"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Tres artistas vestidos con chaquetas de colores bailan coordinados - Michael Jackson show Las Vegas"
+                            src="/oneh2.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh3.jpg"
+                    data-alt="Un acróbata realiza un número aéreo en un escenario colorido y ardiente - Michael Jackson Las Vegas"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Un acróbata realiza un número aéreo en un escenario colorido y ardiente - Michael Jackson Las Vegas"
+                            src="/oneh3.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh4.jpg"
+                    data-alt="Un músico vestido de amarillo toca la guitarra eléctrica - Michael Jackson One Las Vegas"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Un músico vestido de amarillo toca la guitarra eléctrica - Michael Jackson One Las Vegas"
+                            src="/oneh4.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh5.jpg"
+                    data-alt="Dos bailarines vestidos de blanco haciendo el movimiento de baile de inclinación antigravedad - Michael Jackson Las Vegas"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Dos bailarines vestidos de blanco haciendo el movimiento de baile de inclinación antigravedad - Michael Jackson Las Vegas"
+                            src="/oneh5.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh6.jpg"
+                    data-alt="Tres artistas bailando Thriller - Michael Jackson Cirque du Soleil"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Tres artistas bailando Thriller - Michael Jackson Cirque du Soleil"
+                            src="/oneh6.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] object-cover"
+                        />
+                    </div>
+                </button>
+                <button
+                    data-image="/oneh7.jpg"
+                    data-alt="Lásers rojos y blancos apuntan hacia los bailarines en el escenario - Michael Jackson One"
+                    class="image-button relative overflow-hidden transform transition-transform duration-300 hover:scale-110"
+                >
+                    <div>
+                        <img
+                            alt="Lásers rojos y blancos apuntan hacia los bailarines en el escenario - Michael Jackson One"
+                            src="/oneh7.jpg"
+                            loading="lazy"
+                            class="w-[250px;] h-[250px;] rounded-tr-lg rounded-br-lg object-cover"
+                        />
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="carousel-container" id="carouselContainer">
+    <div class="carousel-content">
+        <button class="carousel-close" id="closeCarousel">&times;</button>
+        <div class="carousel-nav">
+            <button class="prevBtn" id="prevBtn"> <Aleft clases="w-24 h-24" /></button>
+            <div class="carousel-slide">
+                <img id="carouselImage" src="" alt="" />
+            </div>
+            <button class="nextBtn" id="nextBtn"><Aright clases="w-24 h-24" /></button>
+        </div>
+        <p id="imageDescription" class="font-custom" style="color: white; text-align: center; margin-top: 15px;"></p>
+    </div>
+</div>
+<style>
+    @font-face {
+        font-family: "custom";
+        src: url("/src/fonts/The Vicious Circle.ttf") format("truetype");
+    }
+
+    .font-custom {
+        font-family: "custom", sans-serif;
+    }
+    .carousel-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .carousel-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        height: 80%;
+        position: relative;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .carousel-nav button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-size: 2em;
+    }
+
+    .carousel-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: white;
+        font-size: 2em;
+    }
+</style>
+<script>
+     const imageButtons = document.querySelectorAll('.image-button');
+    const carouselContainer = document.getElementById('carouselContainer');
+    const carouselImage = document.getElementById('carouselImage') as HTMLImageElement;
+    const imageDescription = document.getElementById('imageDescription');
+    const prevBtn = document.querySelector('.prevBtn');
+    const nextBtn = document.querySelector('.nextBtn');
+    const closeCarousel = document.getElementById('closeCarousel');
+
+    let currentIndex = 0;
+
+    imageButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            currentIndex = index;
+            showImage(currentIndex);
+            carouselContainer.style.display = 'flex';
+        });
+    });
+
+    function showImage(index: number) {
+        const imageUrl = imageButtons[index].getAttribute('data-image');
+        const imageAlt = imageButtons[index].getAttribute('data-alt');
+        if (imageUrl) {
+            carouselImage.src = imageUrl;
+            imageDescription.textContent = imageAlt;
+        }
+    }
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + imageButtons.length) % imageButtons.length;
+        showImage(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % imageButtons.length;
+        showImage(currentIndex);
+    });
+
+    closeCarousel.addEventListener('click', () => {
+        carouselContainer.style.display = 'none';
+    });
+    
+</script>

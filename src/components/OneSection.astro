@@ -1,0 +1,42 @@
+---
+import Gallery from "./Gallery.astro";
+import Parallax from "./Parallax.astro";
+---
+
+
+<section id="page-one"
+    class="landing-section bg-[url('/lights.jpg')] bg-no-repeat bg-cover bg-fixed h-screen w-screen overflow-hidden relative"
+>
+    <div class="container px-5 py-24 mx-auto">
+        <Parallax fondo="/highlights.jpg" textColor="white">
+            <div
+                class="flex flex-wrap sm:flex-row flex-col py-6 mb-12 justify-center items-center"
+            >
+                <figure class="max-w-sm flex-shrink-0 mr-4">
+                    <img
+                        src="/one_head.jpg"
+                        alt="smile"
+                        class="w-[250px;] rounded-md"
+                    />
+                </figure>
+
+                <p
+                    class="hidden md:w-3/5 leading-relaxed text-sm sm:pl-10 bg-black bg-opacity-50 text-white rounded-lg p-2"
+                >
+                    Esta inolvidable experiencia centrada en la coreografía y
+                    los efectos visuales presta especial atención a la música
+                    del propio espectáculo. Las canciones de Michael Jackson ONE
+                    han sido reelaboradas pero se han mantenido bastante fieles
+                    a las versiones de los álbumes y se les ha dado un
+                    tratamiento cinematográfico. El director musical de Michael
+                    Jackson THE IMMORTAL World Tour, Kevin Antunes, añadió
+                    efectos de sonido envolvente a las grabaciones maestras
+                    multipista. Parte de la música produce auténticos
+                    escalofríos a los espectadores, ya que parece rodearles,
+                    venir de arriba o de detrás.
+                </p>
+            </div>
+        </Parallax>
+        <Gallery/>
+    </div>
+</section>

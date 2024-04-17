@@ -2,10 +2,11 @@
 import Section from "./Section.astro";
 import Aleft from "../icons/arrow_left.astro";
 import Aright from "../icons/arrow_right.astro";
+import Close from "../icons/close.astro";
 ---
 
 <Section id="inicio">
-    <!-- Utilizamos x-init para inicializar un watcher que escucha cambios en currentSlide y actualiza dinámicamente los src de las imágenes de fondo según el valor de currentSlide. -->
+    <!--Utilizamos x-init para inicializar un watcher que escucha cambios en currentSlide y actualiza dinámicamente los src de las imágenes de fondo según el valor de currentSlide. -->
     <div
         slot="footer"
         class="relative h-screen w-full overflow-hidden flex items-center justify-center"
@@ -19,7 +20,6 @@ import Aright from "../icons/arrow_right.astro";
                 document.getElementById('bg-image-model2').src = 'mjthemusical_marquee.jpg';
             }
         })"
-        x-on:DOMContentLoaded.window="currentSlide = 1"
     >
         <!-- Botones de navegación -->
         <button
@@ -43,12 +43,12 @@ import Aright from "../icons/arrow_right.astro";
             id="slide1"
             x-show="currentSlide === 1"
         >
-            <button
-                type="button"
+            <a  href="https://www.michaeljackson.com/mj-the-musical/"
+                target="_blank"
                 class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
                 Saber Más
-            </button>
+            </a>
         </div>
 
         <!-- Slide 2 -->
@@ -57,52 +57,31 @@ import Aright from "../icons/arrow_right.astro";
             id="slide2"
             x-show="currentSlide === 2"
         >
-            <!-- Modal -->
-            <div x-data="{ isOpen: false }">
-                <div
-                    x-show="isOpen"
-                    @click.away="isOpen = false"
-                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            <div class="flex space-x-4">
+                <button
+                    id="mostrarVideo"
+                    class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >Ver Trailer</button
                 >
-                    <div class="bg-white rounded-lg p-1">
-                        <!-- Contenido del modal -->
-                        <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/embed/H7tcKr6udJ8?si=wWKz4Ahhn6Xguo3B"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen></iframe>
-                        <button
-                            @click="isOpen = false"
-                            class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4"
-                            >Cerrar</button
-                        >
-                    </div>
-                </div>
+                <a  href="#page-one"
+                class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            >
+                Saber Más
+            </a>
+            </div>
 
-                <!-- Botones -->
-                <div class="flex space-x-4">
-                    <button
-                        @click="isOpen = true"
-                        type="button"
-                        class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        >Ver Trailer</button
-                    >
-
-                    <button
-                        @click="isOpen = true"
-                        type="button"
-                        class="text-ironGray bg-gray-900 hover:text-ironGray border border-ironGray hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        >Saber Más</button
-                    >
-                </div>
+            <div id="videoContainer" style="display:none;">
+                <iframe
+                    id="miVideo"
+                    class="md:w-[640px;] md:h-[360px;]"
+                    src="https://www.youtube.com/embed/H7tcKr6udJ8?autoplay=0"
+                    frameborder="0"
+                    allowfullscreen></iframe>
+                <button id="cerrarVideo"><Close clases="w-6 h-6" /></button>
             </div>
         </div>
     </div>
-    <!-- Imagenes Background de cada slide -->
+
     <img
         slot="background"
         alt="MJ Musical"
@@ -118,3 +97,49 @@ import Aright from "../icons/arrow_right.astro";
         id="bg-image-model2"
     />
 </Section>
+<style>
+    #videoContainer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        text-align: center;
+    }
+    #cerrarVideo {
+        position: absolute;
+        top: 0px;
+        right: 5px;
+        padding: 10px;
+        background-color: gray;
+        border-radius: 50%;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+    }
+    
+</style>
+<script>
+    var mostrarVideoBtn = document.getElementById("mostrarVideo");
+    var videoContainer = document.getElementById("videoContainer");
+    var cerrarVideoBtn = document.getElementById("cerrarVideo");
+    var miVideo = document.getElementById("miVideo");
+
+    mostrarVideoBtn.addEventListener("click", function () {
+        videoContainer.style.display = "block";
+    });
+
+    cerrarVideoBtn.addEventListener("click", function () {
+        videoContainer.style.display = "none";
+        miVideo.src = miVideo.src; // Reiniciar el video
+    });
+
+    videoContainer.addEventListener("click", function (e) {
+        if (e.target === videoContainer) {
+            videoContainer.style.display = "none";
+            miVideo.src = miVideo.src; // Reiniciar el video
+        }
+    });
+</script>
