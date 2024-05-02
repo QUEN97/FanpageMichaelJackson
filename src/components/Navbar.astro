@@ -1,6 +1,64 @@
 ---
-import LinksContainer from "./Links.astro";
+import Menu from "../icons/menu.astro";
+import LinksHeader from "./LinksHeader.astro";
+import Logo from "./Logo.astro";
+const url=Astro.url.pathname;
 ---
-<nav transition:animate="none" class="py-3 sm:px-10 flex items-center fixed top-0 w-full justify-between z-40 text-ironGray">
-    <LinksContainer/>
-</nav>
+
+<div class="w-full">
+    <div
+      x-data="{ open: false }"
+      class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
+      id="landing-header"
+    >
+      <div class="p-4 flex flex-row items-center justify-between">
+        <Logo />
+        <button
+          class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
+          @click="open = !open"
+        >
+          <Menu clases="w-6 h-6" />
+        </button>
+      </div>
+      <nav
+        :class="{'flex': open, 'hidden': !open}"
+        class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
+      >
+        <ul class="flex flex-col md:flex-row text-sm font-bold">
+        {url==='/'&& (
+            <LinksHeader href="/acercade/" title="Acerca de"/>
+            <LinksHeader href="/discografia/" title="Discografía"/>
+            <LinksHeader href="/filmografia/" title="Filmografía"/>
+        )}
+        {url==='/acercade/'&& (
+            <LinksHeader href="/" title="Inicio"/>
+            <LinksHeader href="/discografia/" title="Discografía"/>
+            <LinksHeader href="/filmografia/" title="Filmografía"/>
+        )}
+        {url==='/discografia/'&& (
+            <LinksHeader href="/" title="Inicio"/>
+            <LinksHeader href="/acercade/" title="Acerca de"/>
+            <LinksHeader href="/filmografia/" title="Filmografía"/>
+        )}
+        {url==='/filmografia/'&& (
+            <LinksHeader href="/" title="Inicio"/>
+            <LinksHeader href="/acercade/" title="Acerca de"/>
+            <LinksHeader href="/discografia/" title="Discografía"/>
+        )}
+        </ul>
+      </nav>
+      <div
+        id="menu-backdrop"
+        class={`
+        absolute bg-black/5 backdrop-blur-lg rounded
+        translate-x-[var(--left)] translate-y-[var(--top)]
+        left-0 top-0
+        w-[var(--width)] h-[var(--height)]
+        transition-all duration-500
+        ease-in-out opacity-0 -z-10
+      `}
+      >
+      </div>
+    </div>
+  </div>
+ 
