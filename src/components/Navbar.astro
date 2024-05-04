@@ -2,17 +2,46 @@
 import Menu from "../icons/menu.astro";
 import LinksHeader from "./LinksHeader.astro";
 import Logo from "./Logo.astro";
-const url=Astro.url.pathname;
+const url = Astro.url.pathname;
 ---
 
-<div class="w-full">
+
+  <div class="fixed top-0 w-full z-50">
     <div
       x-data="{ open: false }"
       class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
       id="landing-header"
     >
       <div class="p-4 flex flex-row items-center justify-between">
-        <Logo />
+        {
+          url === "/" && (
+            <>
+              <Logo clases="text-xl font-custom tracking-widest uppercase text-neutral-100" />
+            </>
+          )
+        }
+        {
+          url === "/acercade/" && (
+            <>
+              <Logo clases="text-xl font-custom tracking-widest uppercase text-slate-800" />
+            </>
+          )
+        }
+        {
+          url === "/discografia/" && (
+            <>
+              <Logo clases="text-xl font-custom tracking-widest uppercase text-slate-800" />
+            </>
+          )
+        }
+        {
+          url === "/filmografia/" && (
+            <>
+              <Logo clases="text-xl font-custom tracking-widest uppercase text-slate-800" />
+            </>
+          )
+        }
+        
         <button
           class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
           @click="open = !open"
@@ -25,26 +54,42 @@ const url=Astro.url.pathname;
         class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
       >
         <ul class="flex flex-col md:flex-row text-sm font-bold">
-        {url==='/'&& (
-            <LinksHeader href="/acercade/" title="Acerca de"/>
-            <LinksHeader href="/discografia/" title="Discografía"/>
-            <LinksHeader href="/filmografia/" title="Filmografía"/>
-        )}
-        {url==='/acercade/'&& (
-            <LinksHeader href="/" title="Inicio"/>
-            <LinksHeader href="/discografia/" title="Discografía"/>
-            <LinksHeader href="/filmografia/" title="Filmografía"/>
-        )}
-        {url==='/discografia/'&& (
-            <LinksHeader href="/" title="Inicio"/>
-            <LinksHeader href="/acercade/" title="Acerca de"/>
-            <LinksHeader href="/filmografia/" title="Filmografía"/>
-        )}
-        {url==='/filmografia/'&& (
-            <LinksHeader href="/" title="Inicio"/>
-            <LinksHeader href="/acercade/" title="Acerca de"/>
-            <LinksHeader href="/discografia/" title="Discografía"/>
-        )}
+          {
+            url === "/" && (
+              <>
+                <LinksHeader clases="block px-4 py-2 uppercase text-neutral-100" href="/acercade/" title="Acerca de" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-neutral-100" href="/discografia/" title="Discografía" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-neutral-100" href="/filmografia/" title="Filmografía" />
+              </>
+            )
+          }
+          {
+            url === "/acercade/" && (
+              <>
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/" title="Inicio"/>
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/discografia/" title="Discografía" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/filmografia/" title="Filmografía" />
+              </>
+            )
+          }
+          {
+            url === "/discografia/" && (
+              <>
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/" title="Inicio" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/acercade/" title="Acerca de" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/filmografia/" title="Filmografía" />
+              </>
+            )
+          }
+          {
+            url === "/filmografia/" && (
+              <>
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/" title="Inicio" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/acercade/" title="Acerca de" />
+                <LinksHeader clases="block px-4 py-2 uppercase text-slate-800" href="/discografia/" title="Discografía" />
+              </>
+            )
+          }
         </ul>
       </nav>
       <div
@@ -61,4 +106,6 @@ const url=Astro.url.pathname;
       </div>
     </div>
   </div>
- 
+<script>
+  import "../scripts/headereffect.js";
+</script>
