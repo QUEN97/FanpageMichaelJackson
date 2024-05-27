@@ -1,29 +1,48 @@
 ---
+import Parallax from "../components/Parallax.astro";
 import Section from "./Section.astro";
 import Aleft from "../icons/arrow_left.astro";
 import Aright from "../icons/arrow_right.astro";
 import Close from "../icons/close.astro";
 import Video from "../icons/video.astro";
 import Explore from "../icons/explore.astro";
+import LandSection from "./LandSection.astro";
+import Gallery from "../components/Gallery.astro";
+import { images } from "../scripts/images";
+import Facebook from "../icons/facebook.astro";
+import Twitter from "../icons/twitter.astro";
+import Instagram from "../icons/instagram.astro";
+import Youtube from "../icons/youtube.astro";
+import TikTok from "../icons/tik-tok.astro";
+const mjONE = images.filter((image) => image.category === "one");
+const columnright = mjONE.filter((image) => image.column == "right");
+const columnmiddle = mjONE.filter((image) => image.column == "middle");
+const columnmiddle2 = mjONE.filter((image) => image.column == "middle2");
+const columnleft = mjONE.filter((image) => image.column == "left");
 ---
 
 <Section id="inicio">
-    <!--Utilizamos x-init para inicializar un watcher que escucha cambios en currentSlide y actualiza dinámicamente los src de las imágenes de fondo según el valor de currentSlide. -->
     <div
-        slot="footer"
+        slot="buttons"
         class="relative h-screen w-full overflow-hidden flex items-center justify-center"
         x-data="{ currentSlide: 1 }"
-        x-init="$watch('currentSlide', value => {
-            if (value === 1) {
-                document.getElementById('bg-image-model1').src = 'src/images/mj_one/cds_one.jpg';
-                document.getElementById('bg-image-model2').src = 'src/images/mj_musical/mj_musical.jpg';
-            } else {
-                document.getElementById('bg-image-model1').src = 'src/images/mj_musical/mj_musical.jpg';
-                document.getElementById('bg-image-model2').src = 'src/images/mj_one/cds_one.jpg';
-            }
-        })"
+        x-init="
+            $watch('currentSlide', value => {
+                if (value === 1) {
+                    document.getElementById('bg-image-model1').src = 'src/images/mj_one/cds_one.jpg';
+                    document.getElementById('bg-image-model2').src = 'src/images/mj_musical/mj_musical.jpg';
+                    document.getElementById('page-one').style.display = 'block';
+                    document.getElementById('page-two').style.display = 'none';
+                } else {
+                    document.getElementById('bg-image-model1').src = 'src/images/mj_musical/mj_musical.jpg';
+                    document.getElementById('bg-image-model2').src = 'src/images/mj_one/cds_one.jpg';
+                    document.getElementById('page-one').style.display = 'none';
+                    document.getElementById('page-two').style.display = 'block';
+                }
+            });
+        "
     >
-        <!-- Botones de navegación -->
+        {/* Botones de navegacion */}
         <button
             id="prevBtn"
             @click="currentSlide = (currentSlide === 1) ? 2 : 1"
@@ -39,23 +58,28 @@ import Explore from "../icons/explore.astro";
             <Aright clases="w-24 h-24" />
         </button>
 
-        <!-- Slide 1 -->
+        {/* Slide 1 */}
         <div
             class="slide space-y-4 flex-none w-full flex flex-col items-center justify-center"
             id="slide1"
             x-show="currentSlide === 1"
         >
-            <div class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                <button id="mostrarVideo" class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-flex items-center hover:bg-white hover:text-black transition-colors">
+            <div
+                class="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4"
+            >
+                <button
+                    id="mostrarVideo"
+                    class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-flex items-center hover:bg-white hover:text-black transition-colors"
+                >
                     <span>Ver Trailer</span>
-                    <span class="ml-2"><Video clases="w-5 h-5"/></span>
+                    <span class="ml-2"><Video clases="w-5 h-5" /></span>
                 </button>
                 <a
-                    href="#page-one"
+                    href="#"
                     class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-flex hover:bg-white hover:text-black transition-colors"
                 >
-                <span>Ver Más</span>
-                <span class="ml-2"><Explore clases="w-5 h-5"/></span>
+                    <span>Ver Más</span>
+                    <span class="ml-2"><Explore clases="w-5 h-5" /></span>
                 </a>
             </div>
 
@@ -70,20 +94,18 @@ import Explore from "../icons/explore.astro";
             </div>
         </div>
 
-        <!-- Slide 2 -->
+        {/* Slide 2 */}
         <div
             class="slide space-y-4 flex-none w-full flex flex-col items-center justify-center"
             id="slide2"
             x-show="currentSlide === 2"
         >
             <a
-                href="https://www.michaeljackson.com/mj-the-musical/"
-                target="_blank"
-                class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-flex hover:bg-white hover:text-black transition-colors"
-                >
-                <span>Ver Más</span>
-                <span class="ml-2"><Explore clases="w-5 h-5"/></span>
-                </a>
+                class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-block hover:bg-white hover:text-black transition-colors"
+                href="#"
+            >
+                Conoce más aquí</a
+            >
         </div>
     </div>
 
@@ -104,6 +126,349 @@ import Explore from "../icons/explore.astro";
         loading="lazy"
     />
 </Section>
+
+<section class="bg-slate-900" id="page-one" x-show="currentSlide === 1">
+    <Parallax fondo="/src/images/mj_one/lights.jpg">
+        <div
+            class="flex flex-wrap items-center justify-center gap-2 px-2 py-5 my-32 AnimateOpacityScale"
+        >
+            <div
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 p-4"
+            >
+                ¿QUE ES MICHAEL JACKSON ONE?
+            </div>
+            <figure class="max-w-sm">
+                <img
+                    src="/src/images/mj_one/one_head.jpg"
+                    alt="MJ ONE CDS"
+                    class="w-full rounded-2xl"
+                />
+            </figure>
+            <div
+                class="max-w-lg px-4 sm:px-6 text-sm sm:text-md text-neutral-300 bg-black bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 text-center"
+            >
+                <p>
+                    Esta experiencia inolvidable que está centrada en la
+                    coreografía y los efectos visuales presta especial atención
+                    a la música del propio espectáculo. Las canciones de Michael
+                    Jackson ONE han sido reelaboradas, pero se han mantenido
+                    bastante fieles a las versiones del álbum y se les ha dado
+                    un tratamiento cinematográfico. El director musical de
+                    Michael Jackson THE IMMORTAL World Tour, Kevin Antunes,
+                    añadió efectos de sonido envolventes a las grabaciones
+                    principales de varias pistas. Algunos de los temas musicales
+                    provocan auténticos escalofríos en los espectadores, pues
+                    parece envolverlos.
+                </p>
+            </div>
+        </div>
+    </Parallax>
+    <LandSection
+        title="Presentado por:"
+        subtitle="Click para más información"
+        url="https://www.cirquedusoleil.com/michael-jackson-one"
+        image="src/images/mj_one/cds_brand.svg"
+        fondo="/src/images/mj_one/highlights.jpg"
+    />
+    <Gallery
+        title="SIENTE EL RITMO"
+        subTitle="Una experiencia unica e inolvidable."
+    >
+        <style>
+            .carousel {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: transparent;
+                padding: 1rem;
+                z-index: 9999;
+                width: 80%;
+                max-width: 800px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .carousel img {
+                max-width: 100%;
+                max-height: 500px;
+                object-fit: contain;
+                border-radius: 0.5rem;
+                display: block;
+                margin: 0 auto;
+            }
+            /* Estilos para el fondo desenfocado */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(
+                    0,
+                    0,
+                    0,
+                    0.5
+                ); /* Fondo semitransparente */
+                backdrop-filter: blur(5px); /* Filtro de desenfoque */
+                z-index: 9998; /* Por debajo del carrusel */
+            }
+        </style>
+        <div class="grid gap-2">
+            {
+                columnright.map((image) => (
+                    <div>
+                        <img
+                            class={image.clase}
+                            src={image.cover}
+                            alt={image.attribute}
+                            loading="lazy"
+                        />
+                    </div>
+                ))
+            }
+        </div>
+        <div class="grid gap-2">
+            {
+                columnmiddle.map((image) => (
+                    <div>
+                        <img
+                            class={image.clase}
+                            src={image.cover}
+                            alt={image.attribute}
+                            loading="lazy"
+                        />
+                    </div>
+                ))
+            }
+        </div>
+        <div class="grid gap-2">
+            {
+                columnmiddle2.map((image) => (
+                    <div>
+                        <img
+                            class={image.clase}
+                            src={image.cover}
+                            alt={image.attribute}
+                            loading="lazy"
+                        />
+                    </div>
+                ))
+            }
+        </div>
+        <div class="grid gap-2">
+            {
+                columnleft.map((image) => (
+                    <div>
+                        <img
+                            class={image.clase}
+                            src={image.cover}
+                            alt={image.attribute}
+                            loading="lazy"
+                        />
+                    </div>
+                ))
+            }
+        </div>
+        <div class="overlay" id="overlay"></div>
+        <div id="carousel" class="carousel">
+            <button
+                id="closeButton"
+                class="close-button absolute right-0 top-0 m-4 px-4 py-2 bg-gray-800 text-white rounded-full"
+            >
+                <Close clases="w-12 h-12 text-neutral-300 hover:text-red-500" />
+            </button>
+            <img
+                id="carousel-image"
+                class="h-auto w-auto max-w-full rounded-lg"
+                src=""
+                alt=""
+            />
+            <p
+                id="carousel-description"
+                class="bg-neutral-300 p-2 rounded-sm text-neutral-700 font-bold"
+            >
+            </p>
+            <button
+                class="absolute top-1/2 left-2 transform -translate-y-1/2"
+                id="prevButton"
+            >
+                <Aleft
+                    clases="w-24 h-24 bg-neutral-300/50 rounded-full text-gray-300 hover:text-purple-900"
+                />
+            </button>
+            <button
+                class="absolute top-1/2 right-2 transform -translate-y-1/2"
+                id="nextButton"
+            >
+                <Aright
+                    clases="w-24 h-24 bg-neutral-300/50 rounded-full text-gray-300 hover:text-purple-900"
+                />
+            </button>
+        </div>
+        <script>
+            import "../scripts/carousel.js";
+        </script>
+    </Gallery>
+</section>
+<section
+    class="bg-slate-900"
+    id="page-two"
+    x-show="currentSlide === 2"
+    style="display: none;"
+>
+    <Parallax fondo="/src/images/mj_musical/bg-body.jpg">
+        <div
+            class="my-32 text-center"
+            style="background-image:url('/src/images/mj_musical/bg-splatter.png'); background-size: cover; background-position: center;"
+        >
+            <div
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 p-4"
+            >
+                DISFRUTE LA EXPERIENCIA EN VIVO DEL MUSICAL DE MICHAEL JACKSON
+                EN BROADWAY
+            </div>
+            <div
+                class="flex flex-wrap items-center justify-center gap-2 px-2 py-2 AnimateOpacityScale"
+            >
+                <figure class="max-w-sm">
+                    <img
+                        src="/src/images/mj_musical/mj-hero.png"
+                        alt="MJ MUSICAL"
+                        class="w-full rounded-2xl"
+                    />
+                </figure>
+                <div
+                    class="max-w-lg px-4 sm:px-6 text-lg sm:text-md text-neutral-300 p-6 text-center"
+                >
+                    <p>
+                        El ganador de 4 Premios Tony®, MJ the Musical es el
+                        nuevo y apasionante musical de Broadway que lleva al
+                        público por el proceso creativo de una de las más
+                        grandes estrellas de la historia. Nos presenta más de 25
+                        de las canciones más exitosas de Michael Jackson, entre
+                        las que se incluyen Bad, Billie Jean, Thriller, Beat It
+                        y Smooth Criminal. MJ lleva a Broadway bailes
+                        impresionantes y una historia épica.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </Parallax>
+    <Section id="">
+        <div
+            slot="buttons"
+            class="relative h-screen w-full overflow-hidden flex flex-wrap items-center justify-center gap-4"
+        >
+            <a
+                href="https://www.facebook.com/MJtheMusical/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Facebook
+                    clases="w-24 h-24 text-neutral-400/50 hover:text-red-500 hover:scale-110"
+                /></a
+            >
+
+            <a
+                href="https://twitter.com/mjthemusical"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Twitter
+                    clases="w-24 h-24 text-neutral-400/50 hover:text-red-500 hover:scale-110"
+                /></a
+            >
+
+            <a
+                href="https://www.instagram.com/mjthemusical/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Instagram
+                    clases="w-24 h-24 text-neutral-400/50 hover:text-red-500 hover:scale-110"
+                /></a
+            >
+
+            <a
+                href="https://www.youtube.com/channel/UCBW6LRxJMfncCPG7_D14GCw"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Youtube
+                    clases="w-24 h-24 text-neutral-400/50 hover:text-red-500 hover:scale-110"
+                /></a
+            >
+
+            <a
+                href="https://www.tiktok.com/@mjthemusical"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <TikTok
+                    clases="w-24 h-24 text-neutral-400/50 hover:text-red-500 hover:scale-110"
+                /></a
+            >
+        </div>
+
+        <video
+            slot="background"
+            class="object-center object-cover h-full w-full"
+            autoplay
+            muted
+            loop
+            src="/src/images/mj_musical/mjmusical.mp4"></video>
+    </Section>
+    <section
+        class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full parallax bg-no-repeat bg-cover bg-fixed"
+        style="background-image:url('/src/images/mj_musical/bg-body.jpg');"
+    >
+        <div
+            style="background-image:url('/src/images/mj_musical/bg-splatter.png'); background-size: cover;"
+        >
+            <div
+                class="mx-auto mb-6 w-full space-y-1 text-center sm:w-1/2 lg:w-1/3"
+            >
+                <h2
+                    class="text-balance text-3xl font-bold text-black sm:text-3xl"
+                >
+                    CONSEJOS PARA LAS ENTRADAS
+                </h2>
+            </div>
+            <div
+                class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
+            >
+                <div>
+                    <img
+                        src="/src/images/mj_musical/Poses_line.png"
+                        class="w-[250px]"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <ul
+                class="text-sm text-pretty text-center text-neutral-300 dark:text-neutral-400"
+            >
+                <li>– MJ tiene 8 representaciones todas las semanas.</li>
+                <li>
+                    – Reserve sus entradas con anticipación para tener la mayor
+                    disponibilidad y los mejores precios
+                </li>
+                <li>
+                    – Consulte la clave de precios en la parte superior de la
+                    página oficial y en el mapa de asientos busque los asientos
+                    que coincidan con el precio que desea.
+                </li>
+                <li>
+                    – MJ ofrece precios especiales para grupos de 10 personas o
+                    más.
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
 <style>
     #videoContainer {
         position: fixed;
@@ -114,6 +479,7 @@ import Explore from "../icons/explore.astro";
         background-color: rgba(0, 0, 0, 0.8);
         padding: 20px;
         text-align: center;
+        border-radius: 10px;
     }
     #cerrarVideo {
         position: absolute;
@@ -128,5 +494,5 @@ import Explore from "../icons/explore.astro";
     }
 </style>
 <script>
-      import "../scripts/videoload.js";
+    import "../scripts/videoload.js";
 </script>

@@ -9,11 +9,10 @@ import Footer from './Footer.astro';
 >
   <div class="z-30 relative h-full flex flex-col">
 
-    <footer class="flex flex-col flex-grow justify-end pb-20">
-      <slot name="footer" />
+    <div class="flex flex-col flex-grow justify-end pb-20">
+      <slot name="buttons" />
       <!-- Contidionally load footer: -->
-      {showFooterContent && <Footer />}
-    </footer>
+    </div>
   </div>
 
   <div class="absolute top-0 bottom-0 h-full w-full z-10">
