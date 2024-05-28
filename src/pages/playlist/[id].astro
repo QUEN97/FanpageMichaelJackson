@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layout/BaseLayout.astro'
+import PlaylistFragment from '../fragments/playlist/[id].astro'
+import data from '../../data.json'
+
+
+export function getStaticPaths() {
+  return data.map((playlist) => ({
+    params: { id: playlist.id },
+  }))
+}
+---
+
+<BaseLayout title="Playlist Details">
+  <PlaylistFragment />
+</BaseLayout>
