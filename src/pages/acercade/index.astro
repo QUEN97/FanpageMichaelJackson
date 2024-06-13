@@ -1,5 +1,871 @@
 ---
+import Parallax from "../../components/Parallax.astro";
 import BaseLayout from "../../layout/BaseLayout.astro";
 ---
+
 <BaseLayout title="Acerca de">
+    <Parallax fondo="/src/images/about/bg-mj.webp">
+        <div class="my-64 flex items-center justify-center w-full">
+            <h1
+                class="bg-black bg-opacity-50 backdrop-blur-sm mb-64 p-4 text-8xl text-white rounded-2xl leading-none font-custom italic font-extrabold relative"
+            >
+                ¡EL REY DEL POP!
+            </h1>
+        </div>
+    </Parallax>
+    <style>
+        @font-face {
+            font-family: "Blockt";
+            src: url("/src/fonts/Blockt.ttf");
+        }
+
+        .font-custom {
+            font-family: "Blockt", sans-serif; /* Usamos la fuente personalizada y luego una fuente de respaldo */
+        }
+        .hero__title::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            transform: scale(2) translate(-50%, 0);
+            opacity: 0.5;
+            filter: blur(5rem);
+        }
+        .two {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition:
+                opacity 0.5s ease,
+                transform 0.5s ease;
+        }
+
+        .two.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Animación para la tercera sección (de derecha a izquierda) */
+        .three {
+            opacity: 0;
+            transform: translateX(100%);
+            transition:
+                opacity 0.5s ease,
+                transform 0.5s ease;
+        }
+
+        .three.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Animación para la cuarta sección (de arriba a abajo) */
+        .four {
+            opacity: 0;
+            transform: translateY(-100%);
+            transition:
+                opacity 0.5s ease,
+                transform 0.5s ease;
+        }
+
+        .four.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <section
+        class="panel py-3 px-4 md:px-10 flex space-x-2 justify-center items-center bottom-0 w-full bg-slate-900 text-neutral-300 text-xs font-medium one"
+    >
+        <div
+            class="relative my-64 flex bg-clip-border rounded-xl bg-white text-gray-700 shadow-md w-full max-w-[48rem] flex-row"
+        >
+            <div
+                class="relative w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0"
+            >
+                <img
+                    src="/src/images/about/mj-sunglasses.jpeg"
+                    alt="card-image"
+                    class="object-cover w-full h-full"
+                />
+            </div>
+            <div class="p-6">
+                <h6
+                    class="block mb-4 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-gray-700 uppercase"
+                >
+                    29 de agosto de 1958 - 25 de junio de 2009
+                </h6>
+                <h4
+                    class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
+                >
+                    Michael Jackson
+                </h4>
+                <p
+                    class="block mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700"
+                >
+                    Cantante, compositor, bailarín y filántropo estadounidense.
+                    Conocido como el <strong> <em>"Rey del pop"</em> </strong>,
+                    Michael fue el artista musical individual más premiado de la
+                    historia. Su sonido y estilo han influido en artistas de
+                    varios géneros, y sus contribuciones a la música, la danza y
+                    la moda lo convirtieron en una figura mundial de la cultura
+                    popular durante cuatro décadas. A través de representaciones
+                    teatrales y de video, popularizó complicados movimientos de
+                    baile. Fuera de la música, Michael fue respetado por su
+                    trabajo humanitario frecuente, donando más de $ 500 millones
+                    a organizaciones benéficas a lo largo de su vida.
+                </p>
+            </div>
+        </div>
+        <div
+            x-data="{ activeTab: 'fam', accordionOpen: null }"
+            class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+        >
+            <!-- Mobile dropdown select -->
+            <div class="sm:hidden">
+                <label for="tabs" class="sr-only">Select tab</label>
+                <select
+                    id="tabs"
+                    x-model="activeTab"
+                    class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                    <option value="fam">Familiares</option>
+                    <option value="bio">Información Biográfica</option>
+                    <option value="ext">Descripción Física</option>
+                </select>
+            </div>
+
+            <!-- Desktop tabs -->
+            <ul
+                class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse"
+                id="fullWidthTab"
+                data-tabs-toggle="#fullWidthTabContent"
+                role="tablist"
+            >
+                <li class="w-full">
+                    <button
+                        @click="activeTab = 'fam'"
+                        :class="{ 'bg-gray-100': activeTab === 'fam' }"
+                        type="button"
+                        role="tab"
+                        aria-controls="fam"
+                        :aria-selected="activeTab === 'fam'"
+                        class="inline-block w-full p-4 rounded-ss-lg hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-600 dark:bg-gray-700 dark:focus:bg-gray-600"
+                        >Familiares</button
+                    >
+                </li>
+                <li class="w-full">
+                    <button
+                        @click="activeTab = 'bio'"
+                        :class="{ 'bg-gray-100': activeTab === 'bio' }"
+                        type="button"
+                        role="tab"
+                        aria-controls="bio"
+                        :aria-selected="activeTab === 'bio'"
+                        class="inline-block w-full p-4 hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-600 dark:bg-gray-700 dark:focus:bg-gray-600"
+                        >Información Biográfica</button
+                    >
+                </li>
+                <li class="w-full">
+                    <button
+                        @click="activeTab = 'ext'"
+                        :class="{ 'bg-gray-100': activeTab === 'ext' }"
+                        type="button"
+                        role="tab"
+                        aria-controls="ext"
+                        :aria-selected="activeTab === 'ext'"
+                        class="inline-block w-full p-4 rounded-se-lg hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-600 dark:bg-gray-700 dark:focus:bg-gray-600"
+                        >Descripción Física</button
+                    >
+                </li>
+            </ul>
+
+            <!-- Tab content -->
+            <div
+                id="fullWidthTabContent"
+                class="border-t border-gray-200 dark:border-gray-600"
+            >
+                <div
+                    x-show="activeTab === 'fam'"
+                    class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+                    id="fam"
+                    role="tabpanel"
+                    aria-labelledby="fam-tab"
+                >
+                    <div
+                        x-data="{ showModal: false, modalImage: '' }"
+                        class="p-2"
+                    >
+                        <table class="table-auto w-full">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="text-left font-bold text-gray-700"
+                                        >Nombre</th
+                                    >
+                                    <th
+                                        class="text-left font-bold text-gray-700"
+                                        >Parentesco</th
+                                    >
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/joseph.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/joseph.webp"
+                                                    alt="Joseph Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Joseph Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Padre</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/khaterine.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/khaterine.jpg"
+                                                    alt="Catherine Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Katherine Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Madre</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/paris.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/paris.jpg"
+                                                    alt="Paris Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Paris Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hija</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/blanket.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/blanket.jpg"
+                                                    alt="Michael Joseph Jackson Jr."
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Michael Joseph Jackson Jr.
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hijo</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/prince.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/prince.jpg"
+                                                    alt="Prince Michael Jackson II"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Prince Michael Jackson II
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hijo</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/janet.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/janet.jpg"
+                                                    alt="Janet Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Janet Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermana</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/randy.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/randy.jpg"
+                                                    alt="Randy Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Randy Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/la toya.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/la toya.jpg"
+                                                    alt="La Toya Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                La Toya Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermana</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/tito.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/tito.webp"
+                                                    alt="Tito Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Tito Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/jermaine.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/jermaine.webp"
+                                                    alt="Jermaine Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Jermaine Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/rebbie.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/rebbie.webp"
+                                                    alt="Rebbie Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Rebbie Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/marlon.jpg'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/marlon.jpg"
+                                                    alt="Marlon Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Marlon Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/jackie.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/jackie.webp"
+                                                    alt="Jackie Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Jackie Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/johVonnie.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/johVonnie.webp"
+                                                    alt="Joh’Vonnie Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Joh’Vonnie Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                                <tr class="text-gray-700 hover:bg-gray-200">
+                                    <td class="flex gap-2"
+                                        ><div class="relative h-8 w-8">
+                                            <div>
+                                                <img
+                                                    @click="showModal = true; modalImage = '/src/images/about/brandon.webp'"
+                                                    class="h-8 w-8 rounded-full object-cover cursor-pointer"
+                                                    src="/src/images/about/brandon.webp"
+                                                    alt="Brandon David Jackson"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="text-sm">
+                                            <div class="font-bold">
+                                                Brandon David Jackson
+                                            </div>
+                                        </div></td
+                                    >
+                                    <td>Hermano</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Modal -->
+                        <div
+                            x-show="showModal"
+                            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+                        >
+                            <div
+                                class="bg-white rounded-lg overflow-hidden shadow-lg transform transition-all sm:max-w-lg sm:w-full"
+                            >
+                                <div class="relative p-4">
+                                    <img
+                                        :src="modalImage"
+                                        alt="Imagen ampliada"
+                                        class="w-full h-auto object-cover"
+                                    />
+                                    <button
+                                        @click="showModal = false"
+                                        class="absolute top-2 right-2 text-gray-700 hover:text-gray-500"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-6 w-6"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    x-show="activeTab === 'bio'"
+                    class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+                    id="bio"
+                    role="tabpanel"
+                    aria-labelledby="bio-tab"
+                >
+                <div class="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            Detalles e información.
+                        </p>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Nombre Completo
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    Michael Joseph Jackson
+                                </dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Best techno
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    React JS
+                                </dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Email address
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    m.poul@example.com
+                                </dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Salary
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    $10,000
+                                </dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    About
+                                </dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                </div>
+                <div
+                    x-show="activeTab === 'ext'"
+                    class="p-4 bg-white rounded-lg dark:bg-gray-800"
+                    id="ext"
+                    role="tabpanel"
+                    aria-labelledby="ext-tab"
+                >
+                    <!-- ext accordion -->
+                    <div
+                        id="accordion-flush"
+                        x-data="{ openTab: null }"
+                        data-accordion="collapse"
+                        data-active-classes="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                        data-inactive-classes="text-gray-500 dark:text-gray-400"
+                    >
+                        <!-- ext items -->
+                        <h2
+                            x-on:click="openTab !== 1 ? openTab = 1 : openTab = null"
+                            id="accordion-flush-heading-1"
+                            class="cursor-pointer"
+                        >
+                            <button
+                                type="button"
+                                class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                            >
+                                <span>What is Flowbite?</span>
+                                <svg
+                                    :class="{ 'rotate-180': openTab === 1 }"
+                                    class="w-3 h-3 transform transition-transform"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 10 6"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5 5 1 1 5"></path>
+                                </svg>
+                            </button>
+                        </h2>
+                        <div
+                            x-show="openTab === 1"
+                            class="py-5 border-b border-gray-200 dark:border-gray-700"
+                        >
+                            <p class="mb-2 text-gray-500 dark:text-gray-400">
+                                Flowbite is an open-source library of
+                                interactive components built on top of Tailwind
+                                CSS including buttons, dropdowns, modals,
+                                navbars, and more.
+                            </p>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                Check out this guide to learn how to <a
+                                    href="/docs/getting-started/introduction/"
+                                    class="text-blue-600 dark:text-gray-700 hover:underline"
+                                    >get started</a
+                                > and start developing websites even faster with
+                                components on top of Tailwind CSS.
+                            </p>
+                        </div>
+
+                        <!-- Additional ext items -->
+                        <!-- Repeat similar structure for other exts -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section
+        class="panel py-3 px-4 md:px-10 flex justify-center items-center bottom-0 w-full bg-slate-900 text-neutral-300 text-xs font-medium two"
+    >
+        <div
+            style="background-image:url('/src/images/mj_musical/bg-splatter.png'); background-size: cover;"
+        >
+            <div
+                class="mx-auto mb-6 w-full space-y-1 text-center sm:w-1/2 lg:w-1/3"
+            >
+                <h2
+                    class="text-balance text-3xl font-bold text-black sm:text-3xl"
+                >
+                    CONSEJOS PARA LAS ENTRADAS
+                </h2>
+            </div>
+            <div
+                class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
+            >
+                <div>
+                    <img
+                        src="/src/images/mj_musical/Poses_line.png"
+                        class="w-[250px]"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <ul
+                class="text-sm text-pretty text-center text-neutral-300 dark:text-neutral-400"
+            >
+                <li>– MJ tiene 8 representaciones todas las semanas.</li>
+                <li>
+                    – Reserve sus entradas con anticipación para tener la mayor
+                    disponibilidad y los mejores precios
+                </li>
+                <li>
+                    – Consulte la clave de precios en la parte superior de la
+                    página oficial y en el mapa de asientos busque los asientos
+                    que coincidan con el precio que desea.
+                </li>
+                <li>
+                    – MJ ofrece precios especiales para grupos de 10 personas o
+                    más.
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section
+        class="panel py-3 px-4 md:px-10 flex justify-center items-center bottom-0 w-full bg-slate-900 text-neutral-300 text-xs font-medium three"
+    >
+        <div
+            style="background-image:url('/src/images/mj_musical/bg-splatter.png'); background-size: cover;"
+        >
+            <div
+                class="mx-auto mb-6 w-full space-y-1 text-center sm:w-1/2 lg:w-1/3"
+            >
+                <h2
+                    class="text-balance text-3xl font-bold text-black sm:text-3xl"
+                >
+                    CONSEJOS PARA LAS ENTRADAS
+                </h2>
+            </div>
+            <div
+                class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
+            >
+                <div>
+                    <img
+                        src="/src/images/mj_musical/Poses_line.png"
+                        class="w-[250px]"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <ul
+                class="text-sm text-pretty text-center text-neutral-300 dark:text-neutral-400"
+            >
+                <li>– MJ tiene 8 representaciones todas las semanas.</li>
+                <li>
+                    – Reserve sus entradas con anticipación para tener la mayor
+                    disponibilidad y los mejores precios
+                </li>
+                <li>
+                    – Consulte la clave de precios en la parte superior de la
+                    página oficial y en el mapa de asientos busque los asientos
+                    que coincidan con el precio que desea.
+                </li>
+                <li>
+                    – MJ ofrece precios especiales para grupos de 10 personas o
+                    más.
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section
+        class="panel py-3 px-4 md:px-10 flex justify-center items-center bottom-0 w-full bg-slate-900 text-neutral-300 text-xs font-medium four"
+    >
+        <div
+            style="background-image:url('/src/images/mj_musical/bg-splatter.png'); background-size: cover;"
+        >
+            <div
+                class="mx-auto mb-6 w-full space-y-1 text-center sm:w-1/2 lg:w-1/3"
+            >
+                <h2
+                    class="text-balance text-3xl font-bold text-black sm:text-3xl"
+                >
+                    CONSEJOS PARA LAS ENTRADAS
+                </h2>
+            </div>
+            <div
+                class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
+            >
+                <div>
+                    <img
+                        src="/src/images/mj_musical/Poses_line.png"
+                        class="w-[250px]"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <ul
+                class="text-sm text-pretty text-center text-neutral-300 dark:text-neutral-400"
+            >
+                <li>– MJ tiene 8 representaciones todas las semanas.</li>
+                <li>
+                    – Reserve sus entradas con anticipación para tener la mayor
+                    disponibilidad y los mejores precios
+                </li>
+                <li>
+                    – Consulte la clave de precios en la parte superior de la
+                    página oficial y en el mapa de asientos busque los asientos
+                    que coincidan con el precio que desea.
+                </li>
+                <li>
+                    – MJ ofrece precios especiales para grupos de 10 personas o
+                    más.
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script is:inline>
+        $(document).ready(function () {
+            $(window).on("scroll", function () {
+                var scrollPosition = $(this).scrollTop();
+
+                $(".panel").each(function () {
+                    var offsetTop = $(this).offset().top;
+
+                    if (scrollPosition >= offsetTop - $(window).height() / 2) {
+                        $(this).addClass("active");
+                    } else {
+                        $(this).removeClass("active");
+                    }
+                });
+            });
+        });
+
+        function tabsData() {
+            return {
+                selectedTab: 0,
+                tabs: [
+                    { id: "fam", name: "Familiares" },
+                    {
+                        id: "bio",
+                        name: "Biografía",
+                        heading: "Sobre Michael Jackson",
+                    },
+                    { id: "ext", name: "ext" },
+                ],
+                faqs: [
+                    {
+                        question: "What is Flowbite?",
+                        answer: "Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.",
+                        open: false,
+                    },
+                    {
+                        question: "Is there a Figma file available?",
+                        answer: "Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.",
+                        open: false,
+                    },
+                    {
+                        question:
+                            "What are the differences between Flowbite and Tailwind UI?",
+                        answer: "The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.",
+                        open: false,
+                    },
+                ],
+                toggleAccordion(index) {
+                    this.faqs[index].open = !this.faqs[index].open;
+                },
+            };
+        }
+    </script>
 </BaseLayout>

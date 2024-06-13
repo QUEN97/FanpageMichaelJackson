@@ -48,14 +48,14 @@ const columnleft = mjONE.filter((image) => image.column == "left");
             @click="currentSlide = (currentSlide === 1) ? 2 : 1"
             class="absolute top-1/2 left-2 transform -translate-y-1/2 text-darkGray hover:text-lightGray p-2 focus:outline-none"
         >
-            <Aleft clases="w-24 h-24" />
+            <Aleft clases="w-12 h-12 sm:w-24 sm:h-24" />
         </button>
         <button
             id="nextBtn"
             @click="currentSlide = (currentSlide === 1) ? 2 : 1"
             class="absolute top-1/2 right-2 transform -translate-y-1/2 text-darkGray hover:text-lightGray p-2 focus:outline-none"
         >
-            <Aright clases="w-24 h-24" />
+            <Aright clases="w-12 h-12 sm:w-24 sm:h-24" />
         </button>
 
         {/* Slide 1 */}
@@ -74,13 +74,6 @@ const columnleft = mjONE.filter((image) => image.column == "left");
                     <span>Ver Trailer</span>
                     <span class="ml-2"><Video clases="w-5 h-5" /></span>
                 </button>
-                <a
-                    href="#"
-                    class="border-[3px] border-white bg-white/5 backdrop-blur-sm text-sm rounded font-medium text-white px-12 py-2 inline-flex hover:bg-white hover:text-black transition-colors"
-                >
-                    <span>Ver Más</span>
-                    <span class="ml-2"><Explore clases="w-5 h-5" /></span>
-                </a>
             </div>
 
             <div id="videoContainer" style="display:none;">
@@ -127,7 +120,7 @@ const columnleft = mjONE.filter((image) => image.column == "left");
     />
 </Section>
 
-<section class="bg-slate-900" id="page-one" x-show="currentSlide === 1">
+<section class="bg-[#a349a4]" id="page-one" x-show="currentSlide === 1">
     <Parallax fondo="/src/images/mj_one/lights.jpg">
         <div
             class="flex flex-wrap items-center justify-center gap-2 px-2 py-5 my-32 AnimateOpacityScale"
@@ -296,7 +289,7 @@ const columnleft = mjONE.filter((image) => image.column == "left");
                 id="prevButton"
             >
                 <Aleft
-                    clases="w-24 h-24 bg-neutral-300/50 rounded-full text-gray-300 hover:text-purple-900"
+                    clases="w-12 h-12 sm:w-24 sm:h-24 bg-neutral-700/50 rounded-full text-gray-300 hover:text-purple-900"
                 />
             </button>
             <button
@@ -304,7 +297,7 @@ const columnleft = mjONE.filter((image) => image.column == "left");
                 id="nextButton"
             >
                 <Aright
-                    clases="w-24 h-24 bg-neutral-300/50 rounded-full text-gray-300 hover:text-purple-900"
+                    clases="w-12 h-12 sm:w-24 sm:h-24 bg-neutral-700/50 rounded-full text-gray-300 hover:text-purple-900"
                 />
             </button>
         </div>
